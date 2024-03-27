@@ -1,10 +1,10 @@
 export class Task {
     constructor(
+        public userId: number,
         public title: string,
-        public dueDate: Date,
+        public description: string,
         public priority: string,
         public status: string,
-    ) {
-
-    }
+        public deadline: Date
+    ) { }
 }
