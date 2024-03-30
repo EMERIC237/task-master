@@ -8,9 +8,9 @@ import { Task } from '../../models/Task';
   providedIn: 'root'
 })
 export class TaskService {
-  private baseUrl = 'http://localhost:3000/tasks'; // Adjust to your tasks API endpoint
+  private baseUrl = 'http://localhost:3000/tasks';
 
-  constructor(private http: HttpClient) { } // Inject HttpClient
+  constructor(private http: HttpClient) { }
 
   // Fetch all tasks
   getTasks(): Observable<Task[]> {

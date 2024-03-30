@@ -1,12 +1,21 @@
 <div>
     <div>
         <h2 class=" text-blue-500 text-4xl">Current tasks...</h2>
+        <div>
+            <app-task-carousel [tasks]="allTasks"></app-task-carousel>
+        </div>
     </div>
     <div>
-        <h2  class=" text-blue-500 text-4xl">Completed tasks...</h2>
+        <h2 class=" text-blue-500 text-4xl">Completed tasks...</h2>
+        <div>
+            <app-task-carousel [tasks]="allTasks"></app-task-carousel>
+        </div>
     </div>
     <div>
         <h2 class=" text-blue-500 text-4xl">Reviews...</h2>
+        <div>
+            <app-task-carousel [tasks]="allTasks"></app-task-carousel>
+        </div>
     </div>
 
 </div>
