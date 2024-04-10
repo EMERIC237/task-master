@@ -8,7 +8,7 @@ import { Task } from '../../models/Task';
   providedIn: 'root'
 })
 export class TaskService {
-  private baseUrl = 'http://localhost:3000/tasks/all';
+  private baseUrl = 'http://localhost:3000';
 
   constructor(private http: HttpClient) { }
 
@@ -17,9 +17,16 @@ export class TaskService {
     return this.http.get<Task[]>(this.baseUrl);
   }
 
+
+
+  getTasksByUserId(userId: string): Observable<Task[]> {
+    const url = `${this.baseUrl}/users/${userId}/tasks`;
+    return this.http.get<Task[]>(url);
+  }
+
   // Fetch a single task by ID
   getTaskById(id: number): Observable<Task> {
-    const url = `${this.baseUrl}/${id}`;
+    const url = `${this.baseUrl}/tasks/${id}`;
     return this.http.get<Task>(url);
   }
 

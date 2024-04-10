@@ -1,21 +1,60 @@
-<div class="flex flex-auto">
-    <div class="flex-auto">
-        <h1>Sign Up</h1>
-        <form>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" formControlName="email" class="form-control" required>
+<div class="flex flex-wrap justify-center items-center min-h-screen bg-gray-100">
+    <div class="w-full max-w-md p-8 space-y-8 bg-white shadow-lg rounded-lg">
+        <h1 class="text-xl font-bold text-center">Sign Up</h1>
+        <form [formGroup]="signupForm" (ngSubmit)="signup()" class="space-y-6">
+            <div class="form-group relative">
+                <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                <input type="email" formControlName="email" id="email" placeholder="Email"
+                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
             </div>
             <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" formControlName="password" class="form-control" required>
+                <label for="first_name" class="block text-sm font-medium text-gray-700">First Name</label>
+                <input type="text" formControlName="first_name" id="first_name" placeholder="First Name"
+                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
             </div>
             <div class="form-group">
-                <label for="confirmPassword">Confirm Password</label>
-                <input type="password" id="confirmPassword" formControlName="confirmPassword" class="form-control"
-                    required>
+                <label for="last_name" class="block text-sm font-medium text-gray-700">Last Name</label>
+                <input type="text" formControlName="last_name" id="last_name" placeholder="Last Name"
+                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
             </div>
-            <button type="submit" class="btn btn-primary">Sign Up</button>
+            <div class="form-group">
+                <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+                <input type="text" formControlName="username" id="username" placeholder="Username"
+                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+            </div>
+            <div class="form-group relative">
+                <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                <input [type]="showPassword ? 'text' : 'password'" formControlName="password" id="password"
+                    placeholder="Password"
+                    class="mt-1 block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                <button type="button" class="absolute inset-y-0 right-0 pr-3 flex items-center pt-6"
+                    (click)="toggleShowPassword()">
+                    @if (showPassword) {
+                    <span class="material-symbols-outlined material-icons">
+                        visibility_off
+                    </span>
+
+                    } @else {
+                    <span class="material-symbols-outlined material-icons">
+                        visibility
+                    </span>
+                    }
+
+                </button>
+            </div>
+            <div class="form-group">
+                <label for="password_confirmation" class="block text-sm font-medium text-gray-700">Confirm
+                    Password</label>
+                <input type="password" formControlName="password_confirmation" id="password_confirmation"
+                    placeholder="Confirm Password"
+                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+            </div>
+            <button type="submit"
+                class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                [disabled]="!signupForm.valid">Sign Up</button>
         </form>
+        <div class="text-sm font-medium text-center text-gray-600">
+            Already have an account? <a href="/login" class="text-indigo-500 hover:text-indigo-600">Log in</a>
+        </div>
     </div>
 </div>

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { TaskService } from '../services/task.service';
 import { Task } from '../../models/Task';
 import { TaskCarouselComponent } from '../common/task-carousel/task-carousel.component';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-home-task',
@@ -13,13 +14,15 @@ import { TaskCarouselComponent } from '../common/task-carousel/task-carousel.com
 export class HomeTaskComponent {
 
   allTasks: Task[] = [];
-  constructor(private taskService: TaskService) { }
+  constructor(private taskService: TaskService, private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.taskService.getTasks().subscribe((tasks) => {
-      console.log('here are the tasks: ', tasks);
-
-      this.allTasks = tasks;
+    this.authService.getUser().subscribe(user => {
+      if (user && user.id) {
+        this.taskService.getTasksByUserId(user.id).subscribe(tasks => {
+          this.allTasks = tasks;
+        });
+      }
     });
   }
 
