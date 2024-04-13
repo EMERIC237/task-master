@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'; // Import HttpClient
 import { Observable } from 'rxjs';
 import { Task } from '../../models/Task';
+import { AuthService } from './auth.service';
 
 
 @Injectable({
@@ -10,7 +11,7 @@ import { Task } from '../../models/Task';
 export class TaskService {
   private baseUrl = 'http://localhost:3000';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private authService: AuthService) { }
 
   // Fetch all tasks
   getTasks(): Observable<Task[]> {
@@ -32,6 +33,7 @@ export class TaskService {
 
   // Create a new task
   createTask(task: Task): Observable<Task> {
+    const url = `${this.baseUrl}/tasks`;
     return this.http.post<Task>(this.baseUrl, task);
   }
 

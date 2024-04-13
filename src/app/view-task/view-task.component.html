@@ -20,13 +20,15 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let task of filteredTasks">
+            @for (task of filteredTasks; track task.id) {
+            <tr>
                 <td class="py-4 px-6">{{ task.title }}</td>
                 <td class="py-4 px-6">{{ task.description }}</td>
                 <td class="py-4 px-6">{{ task.priority }}</td>
                 <td class="py-4 px-6">{{ task.status }}</td>
                 <td class="py-4 px-6">{{ task.deadline | date: 'mediumDate' }}</td>
             </tr>
+            }
         </tbody>
     </table>
 </div>
