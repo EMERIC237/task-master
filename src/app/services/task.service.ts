@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'; // Import HttpClient
-import { Observable } from 'rxjs';
+import { Observable, of, switchMap } from 'rxjs';
 import { Task } from '../../models/Task';
 import { AuthService } from './auth.service';
 
@@ -20,8 +20,9 @@ export class TaskService {
 
 
 
-  getTasksByUserId(userId: string): Observable<Task[]> {
+  getTasksByUserId(userId: number): Observable<Task[]> {
     const url = `${this.baseUrl}/users/${userId}/tasks`;
+    console.log(url);  // This is the line that was added
     return this.http.get<Task[]>(url);
   }
 
@@ -32,11 +33,12 @@ export class TaskService {
   }
 
   // Create a new task
-  createTask(task: Task): Observable<Task> {
-    const url = `${this.baseUrl}/tasks`;
-    return this.http.post<Task>(this.baseUrl, task);
+  createTask(task: Task): Observable<Task[]> {
+    const url = `${this.baseUrl}/users/${Number(this.authService.getUserId())}/tasks`;
+    return this.http.post<Task[]>(url, task);
   }
 
+  
   // Update an existing task
   updateTask(id: number, task: Task): Observable<Task> {
     const url = `${this.baseUrl}/${id}`;

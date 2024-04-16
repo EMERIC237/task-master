@@ -16,12 +16,7 @@ import { Subscription, of, switchMap } from 'rxjs';
 export class ViewTaskComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
 
-  tasks: Task[] = [
-    // Sample tasks
-    new Task(1, 1, 'Task 1', 'Description 1', 'High', 'In Progress', new Date('2024-05-01')),
-    new Task(2, 1, 'Task 2', 'Description 2', 'Medium', 'Completed', new Date('2024-04-15')),
-    // Add more tasks as needed
-  ];
+  tasks: Task[] = [];
 
   filteredTasks: Task[] = [];
   filterQuery: string = '';
@@ -33,13 +28,15 @@ export class ViewTaskComponent implements OnInit, OnDestroy {
     this.subscription.add(
       this.authService.getUser().pipe(
         switchMap(user => {
+          console.log("this is user: ", user)
           if (user) {
-            return this.taskService.getTasksByUserId(user.id);
+            return this.taskService.getTasksByUserId(Number(user.id));
           } else {
             return of([]);
           }
         })
       ).subscribe(tasks => {
+        console.log(tasks); // This is the line that was added
         this.tasks = tasks;
         this.filteredTasks = this.tasks;
       })

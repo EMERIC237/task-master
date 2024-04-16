@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
@@ -8,5 +10,14 @@ import { Component } from '@angular/core';
   styleUrl: './sidebar.component.scss'
 })
 export class SidebarComponent {
+
+  constructor(private authService: AuthService, private router: Router) { }
+
+
+
+  logout(): void {
+    this.authService.logout();
+  }
+
 
 }

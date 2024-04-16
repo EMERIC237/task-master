@@ -1,29 +1,38 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { TaskService } from '../services/task.service';
+import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 import { Task } from '../../models/Task';
 import { TaskCarouselComponent } from '../common/task-carousel/task-carousel.component';
-import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-home-task',
   standalone: true,
   imports: [TaskCarouselComponent],
   templateUrl: './home-task.component.html',
-  styleUrl: './home-task.component.scss'
+  styleUrls: ['./home-task.component.scss']
 })
-export class HomeTaskComponent {
-
+export class HomeTaskComponent implements OnDestroy {
   allTasks: Task[] = [];
-  constructor(private taskService: TaskService, private authService: AuthService) { }
+  private subscription: Subscription = new Subscription();
 
-  ngOnInit(): void {
-    this.authService.getUser().subscribe(user => {
-      if (user && user.id) {
-        this.taskService.getTasksByUserId(user.id).subscribe(tasks => {
-          this.allTasks = tasks;
-        });
-      }
-    });
+  constructor(private router: Router, private taskService: TaskService, private authService: AuthService) {
+    this.subscription.add(
+      this.authService.getUser().pipe(
+        switchMap(user => user?.id ? this.taskService.getTasksByUserId(user.id) : [])
+      ).subscribe(tasks => {
+        this.allTasks = tasks;
+      })
+    );
   }
 
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
+  addTask(): void {
+    this.router.navigate(['/add-task']);
+  }
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, Observable, map, switchMap, tap } from 'rxjs';
 import { AuthUser } from '../../models/AuthUser';
 import { UserAccount } from '../../models/User';
 
@@ -13,35 +13,56 @@ export class AuthService {
   private readonly tokenSubject = new BehaviorSubject<string | null>(null);
   private baseUrl = 'http://localhost:3000';
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router) {
+    const token = this.getToken();
+    if (token) {
+      this.handleAuthentication(token, this.decodeToken(token).exp);
+    }
+   }
 
   login(username: string, password: string): Observable<any> {
     const url = `${this.baseUrl}/login`;
     return this.http.post<{ token: string, exp: string }>(url, { username, password }).pipe(
-      tap(({ token, exp }) => {
-        const decodedToken = this.decodeToken(token);
-        const user = new AuthUser(
-          decodedToken.email,
-          decodedToken.user_id.toString(),
-          token,
-          new Date(exp)
-        );
-        this.authUserSubject.next(user);
-        this.setToken(token);
-      })
+      tap(({ token, exp }) => this.handleAuthentication(token, exp))
     );
   }
 
-
   signup(user: UserAccount): Observable<any> {
     const url = `${this.baseUrl}/users`;
-    const userData = { user: user };
-    return this.http.post(url, userData);
+    return this.http.post<{ token: string, exp: string }>(url, { user }).pipe(
+      tap(({ token, exp }) => this.handleAuthentication(token, exp))
+    );
   }
 
+  private handleAuthentication(token: string, exp: string) {
+    const decodedToken = this.decodeToken(token);
+    if (!decodedToken) {
+      console.error('Token decoding failed.');
+      return;
+    }
+    const user = new AuthUser(
+      decodedToken.email,
+      decodedToken.user_id.toString(),
+      token,
+      new Date(exp)
+    );
+    console.log('Emitting new AuthUser:', user);
+    this.authUserSubject.next(user);
+    this.setToken(token);
+    this.setUserId(decodedToken.user_id.toString());
+  }
+  
   setToken(token: string) {
     localStorage.setItem('token', token);
     this.tokenSubject.next(token);
+  }
+
+  setUserId(userId: string) {
+    localStorage.setItem('userId', userId);
+  }
+
+  getUserId(): string | null {
+    return localStorage.getItem('userId');
   }
 
   getToken(): string | null {
@@ -49,14 +70,11 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
-    if (this.getToken() !== null) {
-      return true;
-    }
-    return false;
+    return this.getToken() !== null;
   }
 
   logout() {
-    localStorage.removeItem('token');
+    localStorage.clear();
     this.tokenSubject.next(null);
     this.authUserSubject.next(null);
     this.router.navigate(['/login']);
@@ -70,6 +88,7 @@ export class AuthService {
     try {
       return JSON.parse(atob(token.split('.')[1]));
     } catch (e) {
+      console.error('Failed to decode token', e);
       return null;
     }
   }

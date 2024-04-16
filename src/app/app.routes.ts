@@ -9,7 +9,7 @@ import { AddTaskComponent } from './add-task/add-task.component';
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'home', component: HomeTaskComponent, canActivate: [authGuard] },
-    { path: 'view', component: ViewTaskComponent, canActivate: [authGuard] },
+    { path: 'tasks', component: ViewTaskComponent, canActivate: [authGuard] },
     { path: 'add-task', component: AddTaskComponent, canActivate: [authGuard] },
     { path: 'signup', component: SignupComponent },
     { path: 'login', component: LoginComponent }

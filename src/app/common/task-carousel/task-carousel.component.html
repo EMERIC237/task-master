@@ -1,6 +1,5 @@
-<!-- task-carousel.component.html -->
 <div class="flex overflow-x-auto gap-2 mx-3">
   @for (task of tasks; track task.id) {
-  <app-task-card [task]="task"></app-task-card>
+    <app-task-card [task]="task"></app-task-card>
   }
 </div>

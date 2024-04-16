@@ -1,63 +1,62 @@
-<div class= "text-white">
+<div class="sidebar text-white">
     <div class="p-6">
-        <div class="mb-10">
-            <img class="mx-auto h-12 w-auto" src="your-logo.png" alt="Logo">
-            <h2 class="mt-6 text-center text-3xl font-extrabold text-white">
+        <div class="brand mb-10">
+            <h2 class="title mt-6 text-center text-3xl font-extrabold">
                 TaskMaster Pro
             </h2>
         </div>
-        <nav class="mt-10">
+        <nav class="main-menu mt-10">
             <ul>
-                <li class="my-li-class">
-                    <a href = "/home">
+                <li class="menu-item">
+                    <a class="nav-link" routerLink="/home" routerLinkActive="active">
                         <span class="material-icons">home</span>
-                        <span class="ml-3">Home</span>
+                        <span class="link-text">Home</span>
                     </a>
                 </li>
-                <li class="my-li-class">
-                    <a href="/view">
+                <li class="menu-item">
+                    <a class="nav-link" routerLink="/tasks" routerLinkActive="active">
                         <span class="material-icons">list</span>
-                        <span class="ml-3">My Task</span>
+                        <span class="link-text">My Tasks</span>
                     </a>
                 </li>
-                <li class="my-li-class">
-                    <a href="#">
+                <li class="menu-item">
+                    <a class="nav-link">
                         <span class="material-icons">calendar_today</span>
-                        <span class="ml-3">Calendar</span>
+                        <span class="link-text">Calendar</span>
                     </a>
                 </li>
-                <li class="my-li-class">
-                    <a href="#">
+                <li class="menu-item">
+                    <a class="nav-link">
                         <span class="material-icons">notifications</span>
-                        <span class="ml-3">Notifications</span>
+                        <span class="link-text">Notifications</span>
                     </a>
                 </li>
             </ul>
         </nav>
-        <div class="mt-10">
+        <div class="settings mt-10">
             <ul>
-                <li class="my-li-class">
-                    <a href="#">
+                <li class="menu-item">
+                    <a class="nav-link">
                         <span class="material-icons">settings</span>
-                        <span class="ml-3">Setting</span>
+                        <span class="link-text">Settings</span>
                     </a>
                 </li>
-                <li class="my-li-class">
-                    <a href="#">
+                <li class="menu-item">
+                    <a class="nav-link">
                         <span class="material-icons">help_outline</span>
-                        <span class="ml-3">Support</span>
+                        <span class="link-text">Support</span>
                     </a>
                 </li>
-                <li class="my-li-class">
-                    <a href="#">
+                <li class="menu-item">
+                    <a class="nav-link">
                         <span class="material-icons">report_problem</span>
-                        <span class="ml-3">Report</span>
+                        <span class="link-text">Report</span>
                     </a>
                 </li>
-                <li class="my-li-class">
-                    <a href="#">
+                <li class="menu-item">
+                    <a class="nav-link" (click)="logout()">
                         <span class="material-icons">logout</span>
-                        <span class="ml-3">Logout</span>
+                        <span class="link-text">Logout</span>
                     </a>
                 </li>
             </ul>
