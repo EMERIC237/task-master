@@ -1,0 +1,14 @@
+<full-calendar #calendar [options]="calendarOptions"></full-calendar>
+@if (showModal) {
+<div class="modal" [ngClass]="{'active': showModal}" (click)="closeModal($event)">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <button class="absolute top-0 right-0 p-4" (click)="closeModal()">✖️</button>
+      <h2 class="text-lg font-bold">{{ selectedTask?.title }}</h2>
+      <p>Description: {{ selectedTask?.description }}</p>
+      <p>Priority: {{ selectedTask?.priority | titlecase }}</p>
+      <p>Status: {{ selectedTask?.status | titlecase }}</p>
+      <p>Deadline: {{ selectedTask?.deadline | date:'mediumDate' }}</p>
+    </div>
+  </div>
+  
+}

@@ -27,8 +27,8 @@ export class AddTaskComponent {
       const newTask = new Task(
         this.taskForm.value.title!,
         this.taskForm.value.description!,
-        this.taskForm.value.priority!,
-        this.taskForm.value.status!,
+        this.taskForm.value.priority!.toLocaleLowerCase(),
+        this.taskForm.value.status!.toLocaleLowerCase(),
         new Date(this.taskForm.value.deadline!));
 
       this.taskService.createTask(newTask).subscribe({

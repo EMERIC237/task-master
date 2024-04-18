@@ -22,7 +22,6 @@ export class TaskService {
 
   getTasksByUserId(userId: number): Observable<Task[]> {
     const url = `${this.baseUrl}/users/${userId}/tasks`;
-    console.log(url);  // This is the line that was added
     return this.http.get<Task[]>(url);
   }
 

@@ -28,7 +28,6 @@ export class ViewTaskComponent implements OnInit, OnDestroy {
     this.subscription.add(
       this.authService.getUser().pipe(
         switchMap(user => {
-          console.log("this is user: ", user)
           if (user) {
             return this.taskService.getTasksByUserId(Number(user.id));
           } else {
@@ -36,7 +35,6 @@ export class ViewTaskComponent implements OnInit, OnDestroy {
           }
         })
       ).subscribe(tasks => {
-        console.log(tasks); // This is the line that was added
         this.tasks = tasks;
         this.filteredTasks = this.tasks;
       })

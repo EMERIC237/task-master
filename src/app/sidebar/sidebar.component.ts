@@ -1,23 +1,25 @@
-import { Component } from '@angular/core';
+import { signal, effect, Component } from '@angular/core';
 import { AuthService } from '../services/auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './sidebar.component.html',
-  styleUrl: './sidebar.component.scss'
+  styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent {
+  media = signal(window.matchMedia("(min-width: 600px)").matches);
 
-  constructor(private authService: AuthService, private router: Router) { }
-
+  constructor(private authService: AuthService) {
+    window.matchMedia("(min-width: 600px)").addEventListener('change', e => {
+      this.media.set(e.matches);
+    });
+  }
 
 
   logout(): void {
     this.authService.logout();
   }
-
-
 }

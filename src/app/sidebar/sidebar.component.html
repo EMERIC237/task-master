@@ -1,65 +1,69 @@
-<div class="sidebar text-white">
-    <div class="p-6">
-        <div class="brand mb-10">
-            <h2 class="title mt-6 text-center text-3xl font-extrabold">
-                TaskMaster Pro
-            </h2>
-        </div>
-        <nav class="main-menu mt-10">
-            <ul>
-                <li class="menu-item">
-                    <a class="nav-link" routerLink="/home" routerLinkActive="active">
-                        <span class="material-icons">home</span>
-                        <span class="link-text">Home</span>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a class="nav-link" routerLink="/tasks" routerLinkActive="active">
-                        <span class="material-icons">list</span>
-                        <span class="link-text">My Tasks</span>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a class="nav-link">
-                        <span class="material-icons">calendar_today</span>
-                        <span class="link-text">Calendar</span>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a class="nav-link">
-                        <span class="material-icons">notifications</span>
-                        <span class="link-text">Notifications</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-        <div class="settings mt-10">
-            <ul>
-                <li class="menu-item">
-                    <a class="nav-link">
-                        <span class="material-icons">settings</span>
-                        <span class="link-text">Settings</span>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a class="nav-link">
-                        <span class="material-icons">help_outline</span>
-                        <span class="link-text">Support</span>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a class="nav-link">
-                        <span class="material-icons">report_problem</span>
-                        <span class="link-text">Report</span>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a class="nav-link" (click)="logout()">
-                        <span class="material-icons">logout</span>
-                        <span class="link-text">Logout</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
+<div class="sidebar text-white p-6">
+    <div class="brand mb-10 text-center">
+        <h2 class="title text-3xl font-extrabold flex-shrink min-w-0">TaskMaster Pro</h2>
+    </div>
+    <nav class="main-menu mt-10">
+        <ul class="gap-3">
+            <li class="menu-item">
+                <a class="nav-link flex items-center space-x-2" routerLink="/home" routerLinkActive="active">
+                    <span class="material-icons">home</span>
+                    @if (media()) {
+                    <span class="link-text">Home</span>
+                    }
+                </a>
+            </li>
+            <li class="menu-item">
+                <a class="nav-link flex items-center space-x-2" routerLink="/tasks" routerLinkActive="active">
+                    <span class="material-icons">list</span>
+                    @if (media()) {
+                    <span class="link-text">My Tasks</span>
+                    }
+                </a>
+            </li>
+            <li class="menu-item">
+                <a class="nav-link flex items-center space-x-2" routerLink="/calendar" routerLinkActive="active">
+                    <span class="material-icons">calendar_today</span>
+                    @if (media()) {
+                    <span class="link-text">Calendar</span>
+                    }
+                </a>
+            </li>
+            <li class="menu-item">
+                <a class="nav-link flex items-center space-x-2">
+                    <span class="material-icons">notifications</span>
+                    @if (media()) {
+                    <span class="link-text">Notifications</span>
+                    }
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <div class="settings mt-10">
+        <ul>
+            <li class="menu-item">
+                <a class="nav-link flex items-center space-x-2">
+                    <span class="material-icons">settings</span>
+                    @if (media()) {
+                    <span class="link-text">Settings</span>
+                    }
+                </a>
+            </li>
+            <li class="menu-item">
+                <a class="nav-link flex items-center space-x-2">
+                    <span class="material-icons">report_problem</span>
+                    @if (media()) {
+                    <span class="link-text">Report</span>
+                    }
+                </a>
+            </li>
+            <li class="menu-item">
+                <a class="nav-link flex items-center space-x-2" (click)="logout()" routerLink="/login">
+                    <span class="material-icons">logout</span>
+                    @if (media()) {
+                    <span class="link-text">Logout</span>
+                    }
+                </a>
+            </li>
+        </ul>
     </div>
 </div>

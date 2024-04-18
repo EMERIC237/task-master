@@ -18,7 +18,7 @@ export class AuthService {
     if (token) {
       this.handleAuthentication(token, this.decodeToken(token).exp);
     }
-   }
+  }
 
   login(username: string, password: string): Observable<any> {
     const url = `${this.baseUrl}/login`;
@@ -51,7 +51,7 @@ export class AuthService {
     this.setToken(token);
     this.setUserId(decodedToken.user_id.toString());
   }
-  
+
   setToken(token: string) {
     localStorage.setItem('token', token);
     this.tokenSubject.next(token);
@@ -77,7 +77,6 @@ export class AuthService {
     localStorage.clear();
     this.tokenSubject.next(null);
     this.authUserSubject.next(null);
-    this.router.navigate(['/login']);
   }
 
   getUser(): Observable<AuthUser | null> {
